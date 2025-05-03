@@ -25,32 +25,35 @@ Dilate the Image
 ## Register number: 212223230110
 ## PROGRAM
 ```
+
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
-#i) Create the Text using cv2.putText
-img1=np.zeros((300,600),dtype='uint8')
-font=cv2.FONT_ITALIC
-img2=cv2.putText(img1,"KUSHALI",(5,100),font,3,(255,0,0),5,cv2.LINE_AA)
-cv2.imshow("Original",img2)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
-#ii) Create the structuring element
-#kernel1=cv2.getStructuringElement(cv2.MORPH_RECT,(21,21))
-#kernel2=cv2.getStructuringElement(cv2.MORPH_RECT,(9,9))
-kernel1=cv2.getStructuringElement(cv2.MORPH_RECT,(11,11))
-kernel2=cv2.getStructuringElement(cv2.MORPH_RECT,(5,5))
-#iii) Use Opening operation
-img4=cv2.morphologyEx(img1,cv2.MORPH_OPEN,kernel2)
-cv2.imshow("Opening",img4)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
-#iv) Use Closing Operation
-img3=cv2.morphologyEx(img1,cv2.MORPH_CLOSE,kernel1)
-cv2.imshow("Closing",img3)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+from matplotlib import pyplot as plt
+# Load the image
+img1=np.zeros((100,500),dtype='uint8')
+font=cv2.FONT_HERSHEY_COMPLEX_SMALL
+
+# Create the text using cv2.putText
+cv2.putText(img1,'KUSHALI' ,(5,70),font,4,(255),2,cv2.LINE_AA)
+
+
+# Create the structuring element
+kernel1=cv2.getStructuringElement(cv2.MORPH_CROSS,(5,5))
+
+# Dilate the image
+img_dilate=cv2.dilate(img1,kernel1)
+img_erode=cv2.erode(img1,kernel1)
+
+# Display the results
+plt.figure(figsize=(12, 5))
+plt.subplot(1,3,1)
+plt.imshow(img1,cmap='gray')
+plt.subplot(1,3,2)
+plt.imshow(img_dilate,cmap='gray')
+plt.subplot(1,3,3)
+plt.imshow(img_erode,cmap='gray')
 ```
+
 ## Output:
 
 ### Display the input Image
